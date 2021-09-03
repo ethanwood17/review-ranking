@@ -12,8 +12,10 @@ The program accepts 2 command line arguments, `-n` and `-l`. `-n` is numeric and
 to collect, and defaults to 50. `-l` is numeric as well and specifies the number of reviews you want to limit the output
 to, and defaults to 3. 
 
-To run the program with the defaults, try this: `java -jar .\target\review-ranking-0.0.1-SNAPSHOT-spring-boot.jar`
+To run the program with the defaults, try this: `java -jar target/review-ranking-0.0.1-SNAPSHOT-spring-boot.jar`
 
 The program outputs JSON, and can be piped into a JSON viewer or parser like `jq`. If you have `jq` installed on your system, 
-you can pipe the output into `jq` like this: `java -jar target/review-ranking-0.0.1-SNAPSHOT-spring-boot.jar| jq`
+you can pipe the output into `jq` like this: `java -jar target/review-ranking-0.0.1-SNAPSHOT-spring-boot.jar | jq`
 which will format the JSON nicely. 
+
+To use the flags, try something like this: `java -jar target/review-ranking-0.0.1-SNAPSHOT-spring-boot.jar -n 76 -l 18 | jq`
