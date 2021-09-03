@@ -19,3 +19,7 @@ you can pipe the output into `jq` like this: `java -jar target/review-ranking-0.
 which will format the JSON nicely. 
 
 To use the flags, try something like this: `java -jar target/review-ranking-0.0.1-SNAPSHOT-spring-boot.jar -n 76 -l 18 | jq`
+
+## Testing
+
+Testing is pretty easy as long as you've got maven installed: `mvn test`
