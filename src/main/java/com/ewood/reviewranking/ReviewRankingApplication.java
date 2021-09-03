@@ -26,7 +26,6 @@ public class ReviewRankingApplication implements Runnable {
 
     @Override
     public void run() {
-//        System.out.println("Beginning scraping!");
         ScraperService scraperService = new ScraperService();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Review> sortedReviews = scraperService.scrapeReviews(number)
@@ -35,10 +34,10 @@ public class ReviewRankingApplication implements Runnable {
                 .limit(limit)
                 .collect(Collectors.toList());
 
-        try {
-            System.out.println(objectMapper.writeValueAsString(sortedReviews));
-        } catch (JsonProcessingException e) {
-            System.out.println("Problem with JSON conversion.");
-        }
+//        try {
+//            System.out.println(objectMapper.writeValueAsString(sortedReviews));
+//        } catch (JsonProcessingException e) {
+//            System.out.println("Problem with JSON conversion.");
+//        }
     }
 }

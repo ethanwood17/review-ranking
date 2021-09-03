@@ -11,6 +11,18 @@ import java.util.stream.Stream;
 
 public class ParserService {
 
+    public Stream<Review> parsePage(String url) {
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            System.out.println("Can't access website!");
+        }
+        if (doc != null) {
+            Elements elements = doc.select(".review-entry");
+            return elements.stream().parallel().map(this::parseReview);
+        } else return Stream.empty();
+    }
 
     public Review parseReview(Element element) {
         return Review.builder()
@@ -22,7 +34,9 @@ public class ParserService {
 
     private String extractName(Element element) {
         Elements reviewWrapper = element.select(".review-wrapper");
-        return reviewWrapper.first().select("span").select(".notranslate").text().replace("-", "").trim();
+        String name = reviewWrapper.first().select(".italic").text().replace("-", "").trim();
+        System.out.println(name);
+        return name;
     }
 
     private String extractContent(Element element) {
@@ -32,6 +46,6 @@ public class ParserService {
 
     private String extractDate(Element element) {
         Elements dateContainer = element.select(".review-date");
-        return dateContainer.first().text().trim();
+        return dateContainer.select(".italic").text().trim();
     }
 }
