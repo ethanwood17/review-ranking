@@ -10,8 +10,4 @@ public class Review {
     private String date;
     private String content;
     private String name;
-
-    public long countExclamations() {
-        return this.content.chars().filter(ch -> ch == '!').count();
-    }
 }

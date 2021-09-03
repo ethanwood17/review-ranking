@@ -34,9 +34,7 @@ public class ParserService {
 
     private String extractName(Element element) {
         Elements reviewWrapper = element.select(".review-wrapper");
-        String name = reviewWrapper.first().select(".italic").text().replace("-", "").trim();
-        System.out.println(name);
-        return name;
+        return reviewWrapper.first().select(".italic").text().replace("-", "").trim();
     }
 
     private String extractContent(Element element) {

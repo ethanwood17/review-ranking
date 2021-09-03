@@ -15,5 +15,5 @@ to, and defaults to 3.
 To run the program with the defaults, try this: `java -jar .\target\review-ranking-0.0.1-SNAPSHOT-spring-boot.jar`
 
 The program outputs JSON, and can be piped into a JSON viewer or parser like `jq`. If you have `jq` installed on your system, 
-you can pipe the output into `jq` like this: `java -jar .\target\review-ranking-0.0.1-SNAPSHOT-spring-boot.jar | jq`
+you can pipe the output into `jq` like this: `java -jar target/review-ranking-0.0.1-SNAPSHOT-spring-boot.jar| jq`
 which will format the JSON nicely. 

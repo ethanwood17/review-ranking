@@ -8,10 +8,14 @@ import java.util.stream.Stream;
 
 public class ScraperService {
 
-    private static final String BASE_URL = "https://www.dealerrater.com/dealer/McKaig-Chevrolet-Buick-A-Dealer-For-The-People-dealer-reviews-23685/";
+    private final String baseUrl;
     private static final int pageSize = 10;
 
     ParserService parserService = new ParserService();
+
+    public ScraperService(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
 
     public List<Review> scrapeReviews(int number) {
         List<Review> reviews = new ArrayList<>();
@@ -19,7 +23,10 @@ public class ScraperService {
         Stream.iterate(pages, n -> n + 1)
                 .limit(pages)
                 .parallel()
-                .forEach(i -> parserService.parsePage(getUrlForPage(i)).forEachOrdered(reviews::add));
+                .forEach(i -> parserService.parsePage(getUrlForPage(i))
+                        .limit(number)
+                        .forEachOrdered(reviews::add)
+                );
         return reviews;
     }
 
@@ -33,7 +40,7 @@ public class ScraperService {
     }
 
     private String getUrlForPage(int pageNumber) {
-        return BASE_URL + "page" + pageNumber;
+        return baseUrl + "page" + pageNumber;
     }
 
 
