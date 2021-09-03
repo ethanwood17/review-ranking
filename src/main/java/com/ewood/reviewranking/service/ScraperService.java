@@ -39,8 +39,7 @@ public class ScraperService {
         if (doc != null) {
             Elements elements = doc.select(".review-entry");
             return elements.stream().parallel().map(parserService::parseReview);
-        }
-        else return Stream.empty();
+        } else return Stream.empty();
     }
 
     private int getPages(int number) {
@@ -55,8 +54,6 @@ public class ScraperService {
     private String getUrlForPage(int pageNumber) {
         return BASE_URL + "page" + pageNumber;
     }
-
-
 
 
 }

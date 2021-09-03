@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 public class ParserService {
 
 
-
     public Review parseReview(Element element) {
-        Review review = new Review();
-        review.setName(this.extractName(element));
-        review.setContent(this.extractContent(element));
-        return review;
+        return Review.builder()
+                .name(extractName(element))
+                .content(extractContent(element))
+                .date(extractDate(element))
+                .build();
     }
 
     private String extractName(Element element) {
@@ -28,5 +28,10 @@ public class ParserService {
     private String extractContent(Element element) {
         Elements reviewWrapper = element.select(".review-wrapper");
         return reviewWrapper.select(".review-content").text().trim();
+    }
+
+    private String extractDate(Element element) {
+        Elements dateContainer = element.select(".review-date");
+        return dateContainer.first().text().trim();
     }
 }

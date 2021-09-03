@@ -2,6 +2,8 @@ package com.ewood.reviewranking;
 
 import com.ewood.reviewranking.model.Review;
 import com.ewood.reviewranking.service.ScraperService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -10,8 +12,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-@CommandLine.Command(
-)
+@CommandLine.Command
 public class ReviewRankingApplication implements Runnable {
 
     @CommandLine.Option(names = "-n", defaultValue = "50", description = "The number of reviews you want to parse.")
@@ -25,16 +26,19 @@ public class ReviewRankingApplication implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Beginning scraping!");
+//        System.out.println("Beginning scraping!");
         ScraperService scraperService = new ScraperService();
+        ObjectMapper objectMapper = new ObjectMapper();
         List<Review> sortedReviews = scraperService.scrapeReviews(number)
                 .stream()
                 .sorted(Comparator.comparingLong(Review::countExclamations).reversed())
                 .limit(limit)
                 .collect(Collectors.toList());
 
-        for (int i = 0; i < sortedReviews.size(); i++) {
-            System.out.println(i + 1 + " : " + sortedReviews.get(i));
+        try {
+            System.out.println(objectMapper.writeValueAsString(sortedReviews));
+        } catch (JsonProcessingException e) {
+            System.out.println("Problem with JSON conversion.");
         }
     }
 }
